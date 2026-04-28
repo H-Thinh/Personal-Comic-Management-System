@@ -1,0 +1,199 @@
+.detail-comic {
+    display: flex;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.detail-img {
+    height: 345px;
+    width: 260px;
+    margin-right: 45px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.detail-info {
+    height: 345px;
+    width: 880px;
+}
+
+.detail-info .detail-header {
+    display: flex;
+    align-items: center;
+}
+
+.detail-header .detail-title {
+    height: 29px;
+    font-size: 20px;
+    line-height: 29px;
+    margin-right: 15px;
+}
+
+.detail-header .detail-status {
+    background-color: red;
+    padding: 5px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.detail-info .detail-tag {
+    display: flex;
+    margin-top: 10px;
+}
+
+.detail-tag .tag-type {
+    padding: 5px;
+    border: 1px solid red;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.detail-info .detail-author,
+.detail-info .detail-description {
+    width: 700px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.detail-description {
+    height: 120px;
+
+}
+
+.detail-interact {
+    display: flex;
+    margin-top: 50px;
+}
+
+.detail-interact .detail-read {
+    background-color: red;
+    color: #FFFFFF;
+    opacity: 0.8;
+    box-shadow: 4px 3px 1px 2px rgba(255, 0, 0, 0.8);
+}
+
+.detail-interact .detail-read:active {
+    transform: scale(0.95);
+    box-shadow: 4px 3px 1px 2px rgba(255, 0, 0, 0.8);
+}
+
+.detail-interact .detail-read,
+.detail-interact .detail-collect {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border: 1px solid red;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.detail-read .detail-read-icon,
+.detail-collect .detail-collect-icon {
+    margin-right: 10px;
+}
+
+.detail-tab {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.detail-tab .detail-tab-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-tab-title h1 {
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.detail-tab-title p {
+    margin-left: 10px;
+    font-size: 15px;
+    opacity: 0.6;
+}
+
+.line::after {
+    content: '/';
+    width: 10px;
+    height: 10px;
+    margin-left: 20px;
+    color: #666;
+}
+
+.detail-tab-title .active {
+    color: red;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+.detail-tab-menu {
+    overflow: hidden;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.detail-tab-menu::-webkit-scrollbar {
+    width: 4px;
+}
+
+.detail-tab-menu::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.chapters-menu .chapter-item {
+    width: 280px;
+    height: 70px;
+    margin: 10px 10px 10px 0;
+    background: #F8F8F8;
+    float: left;
+    color: #000;
+    opacity: 1;
+    padding: 6px 0 8px 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chapters-menu .chapter-data {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    color: #ccc;
+}
+
+.chapter-data .chapter-date {
+    margin-left: 10px;
+}
+
+.chapter-data .chapter-comments {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.chapter-comments p {
+    margin-left: 4px;
+}
+
+.detail-collect.active {
+    background-color: red;
+    opacity: 0.8;
+    color: #fff;
+}

@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./src/generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ===== USER =====
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  roleId     Int
+  status     String   @default("active")
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  role        Role             @relation(fields: [roleId], references: [id])
+  upermission UserPermission[]
+  follows     Follow[]
+  histories   History[]
+  rates       Rate[]
+  comments    Comment[]
+}
+
+// ===== ROLE =====
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users          User[]
+  rolepermission RolePermission[]
+}
+
+// ===== PERMISSION =====
+model Permission {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users UserPermission[]
+  roles RolePermission[]
+}
+
+// ===== USER_PERMISSION =====
+model UserPermission {
+  userId       Int
+  permissionId Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([userId, permissionId])
+}
+
+// ===== ROLE_PERMISSION =====
+model RolePermission {
+  roleId       Int
+  permissionId Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+// ===== COMIC =====
+model Comic {
+  id         Int      @id @default(autoincrement())
+  title      String
+  slug       String
+  authorID   Int
+  views      Int      @default(0)
+  coverImage String   @db.Text
+  content    String   @db.LongText
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  author    Author       @relation(fields: [authorID], references: [id], onDelete: Cascade)
+  chapters  Chapter[]
+  follows   Follow[]
+  histories History[]
+  genres    ComicGenre[]
+  rates     Rate[]
+  comments  Comment[]
+}
+
+// ===== CHAPTER =====
+model Chapter {
+  id        Int      @id @default(autoincrement())
+  comicId   Int
+  title     String
+  content   String   @db.Text
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comic    Comic     @relation(fields: [comicId], references: [id], onDelete: Cascade)
+  comments Comment[]
+}
+
+// ===== FOLLOW =====
+model Follow {
+  userId    Int
+  comicId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  comic Comic @relation(fields: [comicId], references: [id], onDelete: Cascade)
+
+  @@id([userId, comicId])
+}
+
+// ===== HISTORY =====
+model History {
+  userId    Int
+  comicId   Int
+  chapter   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  comic Comic @relation(fields: [comicId], references: [id], onDelete: Cascade)
+
+  @@id([userId, comicId])
+}
+
+// ===== GENRE =====
+model Genre {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comics ComicGenre[]
+}
+
+// ===== COMIC_GENRE =====
+model ComicGenre {
+  comicId   Int
+  genreId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comic Comic @relation(fields: [comicId], references: [id], onDelete: Cascade)
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([comicId, genreId])
+}
+
+// ===== RATE =====
+model Rate {
+  id        Int      @id @default(autoincrement())
+  comicId   Int
+  userId    Int
+  rating    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    String   @default("active")
+
+  comic Comic @relation(fields: [comicId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([comicId, userId])
+}
+
+// ===== AUTHOR =====
+model Author {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comics Comic[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  comic   Comic? @relation(fields: [comicId], references: [id])
+  comicId Int?
+
+  chapter   Chapter? @relation(fields: [chapterId], references: [id])
+  chapterId Int?
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  parentId Int?
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReplies")
+  status   String    @default("active")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

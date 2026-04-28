@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `comic` MODIFY `slug` VARCHAR(191) NOT NULL,
+    MODIFY `content` LONGTEXT NOT NULL;

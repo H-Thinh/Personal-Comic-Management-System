@@ -1,0 +1,91 @@
+.category-management {
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    margin: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.section-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+    font-weight: 500;
+}
+
+.add-category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.input-category {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+}
+
+.btn-update-category,
+.btn-add-category {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.category-table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #e0e0e0;
+}
+
+.category-table {
+    background-color: #f3f4f6;
+}
+
+.category-table thead tr {
+    background-color: #f3f4f6;
+
+}
+
+.category-table th,
+.category-table td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.category-table tr {
+    background-color: white;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.edit-icon {
+    margin-left: 12px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #111;
+}
+
+.delete-icon {
+    margin-left: 12px;
+    cursor: pointer;
+    font-size: 21px;
+    color: #111;
+}
